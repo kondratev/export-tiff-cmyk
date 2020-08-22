@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<inkscape-extension xmlns="http://www.inkscape.org/namespace/inkscape/extension">>
+    <_name>Export TIFF CMYK</_name>
+    <id>jonata.export-tiff-cmyk</id>
+    <dependency type="executable" location="extensions">export-tiff-cmyk.py</dependency>
+    <dependency type="executable" >inkscape</dependency>
+    <param name="icc_profile" type="boolean" _gui-text="ICC Profile">true</param>
+    <param name="resolution" type="int" min="1" max="3600" _gui-text="Resolution for rasterization (dpi)">300</param>
+    <param name="set_overprint_black" type="boolean" _gui-text="Preserve black">true</param>
+    <param name="set_alpha" type="boolean" _gui-text="Preserve transparency">true</param>
+    <output>
+                <extension>.tif</extension>
+                <mimetype>application/x-tiff</mimetype>
+                <_filetypename>TIFF CMYK (*.tif)</_filetypename>
+                <_filetypetooltip>TIFF CMYK (*.tif)</_filetypetooltip>
+                <dataloss>true</dataloss>
+    </output>
+    <script>
+        <command reldir="extensions" interpreter="python">export-tiff-cmyk.py</command>
+    </script>
+</inkscape-extension>
+

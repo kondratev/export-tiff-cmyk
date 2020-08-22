@@ -136,13 +136,8 @@ class ExportTIFF(inkex.Effect):
             def representC(value):
                 # returns CMS color if available
                 if (re.search("icc-color", value.group())):
-                    #return simplestyle.formatColor3f(float(1.00 - float(re.split('[,\)\s]+', value.group())[2])), float(1.00), float(1.00))
                     return str(inkex.Color((float(1.00 - float(re.split('[,\)\s]+', value.group())[2])), float(1.00), float(1.00))))
                 else:
-                    #red = float(simplestyle.parseColor(str(value.group()))[0]/255.00)
-                    #green =float(simplestyle.parseColor(str(value.group()))[1]/255.00)
-                    #blue = float(simplestyle.parseColor(str(value.group()))[2]/255.00)
-                    #return simplestyle.formatColor3f(float(1.00 - calculateCMYK(red, green, blue)[0]), float(1.00), float(1.00))
                     red = float(inkex.Color(str(value.group()))[0]/255.00)
                     green =float(inkex.Color(str(value.group()))[1]/255.00)
                     blue = float(inkex.Color(str(value.group()))[2]/255.00)
@@ -151,13 +146,8 @@ class ExportTIFF(inkex.Effect):
             def representM(value):
                 # returns CMS color if available
                 if (re.search("icc-color", value.group())):
-                    #return simplestyle.formatColor3f(float(1.00 - float(re.split('[,\)\s]+', value.group())[2])), float(1.00), float(1.00))
                     return str(inkex.Color((float(1.00 - float(re.split('[,\)\s]+', value.group())[2])),float(1.00), float(1.00))))
                 else:
-                    #red = float(simplestyle.parseColor(str(value.group()))[0]/255.00)
-                    #green = float(simplestyle.parseColor(str(value.group()))[1]/255.00)
-                    #blue = float(simplestyle.parseColor(str(value.group()))[2]/255.00)
-                    #return simplestyle.formatColor3f(float(1.00), float(1.00 - calculateCMYK(red, green, blue)[1]), float(1.00))
                     red = float(inkex.Color(str(value.group()))[0]/255.00)
                     green =float(inkex.Color(str(value.group()))[1]/255.00)
                     blue = float(inkex.Color(str(value.group()))[2]/255.00)
@@ -166,13 +156,8 @@ class ExportTIFF(inkex.Effect):
             def representY(value):
                 # returns CMS color if available
                 if (re.search("icc-color", value.group())):
-                    #return simplestyle.formatColor3f(float(1.00), float(1.00), float(1.00 - float(re.split('[,\)\s]+', value.group())[4])))
                     return str(inkex.Color((float(1.00), float(1.00), float(1.00 - float(re.split('[,\)\s]+', value.group())[4])))))
                 else:
-                    #red = float(simplestyle.parseColor(str(value.group()))[0]/255.00)
-                    #green = float(simplestyle.parseColor(str(value.group()))[1]/255.00)
-                    #blue = float(simplestyle.parseColor(str(value.group()))[2]/255.00)
-                    #return simplestyle.formatColor3f(float(1.00), float(1.00), float(1.00 - calculateCMYK(red, green, blue)[2]))
                     red = float(inkex.Color(str(value.group()))[0]/255.00)
                     green =float(inkex.Color(str(value.group()))[1]/255.00)
                     blue = float(inkex.Color(str(value.group()))[2]/255.00)
@@ -181,13 +166,8 @@ class ExportTIFF(inkex.Effect):
             def representK(value):
                 # returns CMS color if available
                 if (re.search("icc-color", value.group())):
-                    #return simplestyle.formatColor3f(float(1.00 - float(re.split('[,\)\s]+', value.group())[5])), float(1.00 - float(re.split('[,\)\s]+', value.group())[5])), float(1.00 - float(re.split('[,\)\s]+', value.group())[5])))
                     return str(inkex.Color((float(1.00 - float(re.split('[,\)\s]+', value.group())[5])), float(1.00 - float(re.split('[,\)\s]+', value.group())[5])), float(1.00 - float(re.split('[,\)\s]+', value.group())[5])))))
                 else:
-                    #red = float(simplestyle.parseColor(str(value.group()))[0]/255.00)
-                    #green = float(simplestyle.parseColor(str(value.group()))[1]/255.00)
-                    #blue = float(simplestyle.parseColor(str(value.group()))[2]/255.00)
-                    #return simplestyle.formatColor3f(float(1.00 - calculateCMYK(red, green, blue)[3]), float(1.00 - calculateCMYK(red, green, blue)[3]), float(1.00 - calculateCMYK(red, green, blue)[3]))
                     red = float(inkex.Color(str(value.group()))[0]/255.00)
                     green =float(inkex.Color(str(value.group()))[1]/255.00)
                     blue = float(inkex.Color(str(value.group()))[2]/255.00)
@@ -247,7 +227,6 @@ class ExportTIFF(inkex.Effect):
                     ) + os.sep + "separated" + areas_a_exportar[i].replace("--export-id=", "").replace("--export-area-page", "final") + "K.png;" + ' export-dpi:' + resolution + "; export-do;\n"
                 return str.encode(string_inkscape_exec)
             devnull=open(os.devnull, 'w')
-#            devnull=open('/tmp/errorlog.txt.ink', 'w')
             devnull.write(str(gerar_pngs()))
             devnull.write(str(areas_a_exportar))
             inkscape_exec = subprocess.Popen(['inkscape --shell'], shell=True, stdout=devnull,
@@ -256,13 +235,8 @@ class ExportTIFF(inkex.Effect):
 
             for i in range(len(areas_a_exportar)):
                 if (self.options.set_alpha):
-#                    devnull.write(str(['convert', tempfile.gettempdir() + os.sep + "separated" + areas_a_exportar[i].replace("--export-id=", "").replace("--export-area-page", "final") + "K.png",
-#                                      '-alpha', 'extract',  tempfile.gettempdir() + os.sep + "separated" + areas_a_exportar[i].replace("--export-id=", "").replace("--export-area-page", "final") + "mask.png"]))
                     subprocess.Popen(['convert', tempfile.gettempdir() + os.sep + "separated" + areas_a_exportar[i].replace("--export-id=", "").replace("--export-area-page", "final") + "K.png",
                                       '-alpha', 'extract',  tempfile.gettempdir() + os.sep + "separated" + areas_a_exportar[i].replace("--export-id=", "").replace("--export-area-page", "final") + "mask.png"]).wait()
-                    pass
-#                devnull.write(str(['convert', tempfile.gettempdir() + os.sep + "separated" + areas_a_exportar[i].replace("--export-id=", "").replace("--export-area-page", "final") + "C.png", '-colorspace',
-#                                  'CMYK', '-channel', 'C', '-separate', tempfile.gettempdir() + os.sep + "separated" + areas_a_exportar[i].replace("--export-id=", "").replace("--export-area-page", "final") + "C.png"]))
                 subprocess.Popen(['convert', tempfile.gettempdir() + os.sep + "separated" + areas_a_exportar[i].replace("--export-id=", "").replace("--export-area-page", "final") + "C.png", '-colorspace',
                                   'CMYK', '-channel', 'C', '-separate', tempfile.gettempdir() + os.sep + "separated" + areas_a_exportar[i].replace("--export-id=", "").replace("--export-area-page", "final") + "C.png"]).wait()
                 subprocess.Popen(['convert', tempfile.gettempdir() + os.sep + "separated" + areas_a_exportar[i].replace("--export-id=", "").replace("--export-area-page", "final") + "M.png", '-colorspace',
@@ -271,16 +245,11 @@ class ExportTIFF(inkex.Effect):
                                   'CMYK', '-channel', 'Y', '-separate', tempfile.gettempdir() + os.sep + "separated" + areas_a_exportar[i].replace("--export-id=", "").replace("--export-area-page", "final") + "Y.png"]).wait()
                 subprocess.Popen(['convert', tempfile.gettempdir() + os.sep + "separated" + areas_a_exportar[i].replace("--export-id=", "").replace("--export-area-page", "final") + "K.png", '-colorspace',
                                   'CMYK', '-channel', 'K', '-separate', tempfile.gettempdir() + os.sep + "separated" + areas_a_exportar[i].replace("--export-id=", "").replace("--export-area-page", "final") + "K.png"]).wait()
-#                devnull.write(str(['convert', tempfile.gettempdir() + os.sep + "separated" + areas_a_exportar[i].replace("--export-id=", "").replace("--export-area-page", "final") + "C.png", tempfile.gettempdir() + os.sep + "separated" + areas_a_exportar[i].replace("--export-id=", "").replace("--export-area-page", "final") + "M.png", tempfile.gettempdir() + os.sep + "separated" + areas_a_exportar[i].replace(
-#                    "--export-id=", "").replace("--export-area-page", "final") + "Y.png", tempfile.gettempdir() + os.sep + "separated" + areas_a_exportar[i].replace("--export-id=", "").replace("--export-area-page", "final") + "K.png", '-set', 'colorspace', 'CMYK', '-combine', tempfile.gettempdir() + os.sep + areas_a_exportar[i].replace("--export-id=", "").replace("--export-area-page", "final") + ".tif"]))
                 subprocess.Popen(['convert', tempfile.gettempdir() + os.sep + "separated" + areas_a_exportar[i].replace("--export-id=", "").replace("--export-area-page", "final") + "C.png", tempfile.gettempdir() + os.sep + "separated" + areas_a_exportar[i].replace("--export-id=", "").replace("--export-area-page", "final") + "M.png", tempfile.gettempdir() + os.sep + "separated" + areas_a_exportar[i].replace(
                     "--export-id=", "").replace("--export-area-page", "final") + "Y.png", tempfile.gettempdir() + os.sep + "separated" + areas_a_exportar[i].replace("--export-id=", "").replace("--export-area-page", "final") + "K.png", '-set', 'colorspace', 'CMYK', '-combine', tempfile.gettempdir() + os.sep + areas_a_exportar[i].replace("--export-id=", "").replace("--export-area-page", "final") + ".tif"]).wait()
                 if (self.options.set_alpha):
-#                    devnull.write(str(['composite', '-compose', 'CopyOpacity', tempfile.gettempdir() + os.sep + "separated" + areas_a_exportar[i].replace("--export-id=", "").replace("--export-area-page", "final") + "mask.png", tempfile.gettempdir() + os.sep +
-#                                      areas_a_exportar[i].replace("--export-id=", "").replace("--export-area-page", "final") + ".tif", tempfile.gettempdir() + os.sep + areas_a_exportar[i].replace("--export-id=", "").replace("--export-area-page", "final") + ".tif"]))
                     subprocess.Popen(['composite', '-compose', 'CopyOpacity', tempfile.gettempdir() + os.sep + "separated" + areas_a_exportar[i].replace("--export-id=", "").replace("--export-area-page", "final") + "mask.png", tempfile.gettempdir() + os.sep +
                                       areas_a_exportar[i].replace("--export-id=", "").replace("--export-area-page", "final") + ".tif", tempfile.gettempdir() + os.sep + areas_a_exportar[i].replace("--export-id=", "").replace("--export-area-page", "final") + ".tif"]).wait()
-                    pass
                 if (self.options.icc_profile):
                     cmyk_profile = '"' + \
                         inkscape_config.split('id="softproof"')[1].split(
@@ -297,5 +266,4 @@ class ExportTIFF(inkex.Effect):
 
 if __name__ == '__main__':
     effect = ExportTIFF()
-    #effect.affect()
     effect.run()

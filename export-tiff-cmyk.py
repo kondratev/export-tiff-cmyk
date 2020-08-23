@@ -75,8 +75,7 @@ class ExportTIFF(inkex.Effect):
             def trocar_cores(origin, tipo_cor):
                 for i in range(len(str(origin).split(tipo_cor + ':'))):
                     if str(str(origin).split(tipo_cor + ':')[i].split(';')[0]) in simplestyle.svgcolors.keys():
-                        numeros_da_cor = simplestyle.formatColoria(simplestyle.parseColor(
-                            str(str(origin).split(tipo_cor + ':')[i].split(';')[0])))
+                        numeros_da_cor = str(inkex.Color(inkex.Color(str(str(origin).split(tipo_cor + ':')[i].split(';')[0])).to_rgb()))
                         origin = str(origin).replace(
                             ':' + str(str(origin).split(tipo_cor + ':')[i].split(';')[0]) + ';', ':' + numeros_da_cor + ';')
                 return origin
